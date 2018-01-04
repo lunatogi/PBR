@@ -3,53 +3,110 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
-    Rigidbody2D rigidbody;
+
+    Animator anim;
+    Rigidbody2D rigidbodyPlayer;
+    SpriteRenderer s_Renderer;
 
     public GameObject bullet;       //Ateş edilecek mermi ve çıkış noktası
     public Transform attackLoc;
 
     public float maxSpeed = 5f;     //Koşma için olan maxSpeed
 
-    bool b_goright = false;         //Sağa sola gitmeyi kontrol eden bollar
-    bool b_goleft = false ;
+    bool is_walking;
+
+    int direction = 0;
+    int bulletDirection;
 
 	void Start () {
-        rigidbody = transform.gameObject.GetComponent<Rigidbody2D>();
-
+        anim = transform.gameObject.GetComponent<Animator>();
+        rigidbodyPlayer = transform.gameObject.GetComponent<Rigidbody2D>();
+        s_Renderer = transform.gameObject.GetComponent<SpriteRenderer>();
     }
 	
 	void FixedUpdate () {
-		if(b_goright)
-            rigidbody.velocity = new Vector2(1 * maxSpeed, rigidbody.velocity.y);       //Sağa gidiş
 
-        if(b_goleft)
-            rigidbody.velocity = new Vector2(-1 * maxSpeed, rigidbody.velocity.y);      //Sola gidiş
+        if (direction != 0)
+            bulletDirection = direction;
+
+        if (is_walking)
+        {
+            
+        }
+        else
+        {
+            
+            direction = 0;
+        }
+
+        try
+        {
+            rigidbodyPlayer.velocity = new Vector2(direction * maxSpeed, rigidbodyPlayer.velocity.y);       //Tuşlara basılınca direction değişir ve ona göre karakter hareket eder
+        }
+        catch
+        {
+
+        }
     }
 
     public void GoRight()           //Sağa giderken olması gerenler
     {
-        b_goright = true;
+        anim.Play("girlwalkingAnim");
+        direction = 1;
+        FlipX(direction);
+        is_walking = true;
     }
 
     public void GoLeft()            //Sola giderken olması gerekenler
     {
-        b_goleft = true;
+        anim.Play("girlwalkingAnim");
+        direction = -1;
+        FlipX(direction);
+        is_walking = true;
     }
 
     public void PointerUp()
     {
-        rigidbody.velocity = new Vector3(0, rigidbody.velocity.y);         //Hiçbir tuşa basmıyorken durmasını sağlar
-        b_goleft = false;
-        b_goright = false;
+        is_walking = false;
+        anim.Play("girlidleAnim");
     }
+
+
+
+
+
 
     public void Attack()
     {
-        Invoke("InvokeBullet", 0.0f);       //Delayle mermi atımını sağlar
+        anim.Play("girlattackAnim");
+        Invoke("InvokeBullet", 0.2f);       //Delayle mermi atımını sağlar
     }
 
     public void InvokeBullet()
     {
-        Instantiate(bullet, attackLoc.position, attackLoc.rotation);    //Mermi oluşturur
+        GameObject bult = Instantiate(bullet, attackLoc.position, attackLoc.rotation);    //Mermi oluşturur
+        bult.SendMessage("DirectionSet", bulletDirection);
+    }
+
+
+
+
+    public void FlipX(int direction)
+    {
+        if (direction == 1)
+        {
+            if (transform.localScale.x < 0)
+            {
+                Vector2 new_Scale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+                transform.localScale = new_Scale;
+            }
+        }else if(direction == -1)
+        {
+            if(transform.localScale.x > 0)
+            {
+                Vector2 new_Scale = new Vector2(transform.localScale.x * -1, transform.localScale.y);
+                transform.localScale = new_Scale;
+            }
+        }
     }
 }

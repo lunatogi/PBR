@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 176150959}
   - component: {fileID: 176150958}
   - component: {fileID: 176150962}
+  - component: {fileID: 176150963}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -221,7 +222,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 176150957}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.2, y: 0.67, z: 0}
+  m_LocalPosition: {x: -0.03, y: 0.67, z: 0}
   m_LocalScale: {x: 0.5056387, y: 0.5056387, z: 0.5056387}
   m_Children:
   - {fileID: 452626087}
@@ -242,6 +243,23 @@ MonoBehaviour:
   bullet: {fileID: 1954873943901324, guid: e35b0f7f7152dc74e9316d82b3147729, type: 2}
   attackLoc: {fileID: 452626087}
   maxSpeed: 10
+--- !u!95 &176150963
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 176150957}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: fc701a324dceec441925e2eb9d3c4006, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!1 &452626086
 GameObject:
   m_ObjectHideFlags: 0
@@ -1183,7 +1201,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1848681888}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.26, y: 0.63, z: 0}
+  m_LocalPosition: {x: 7.6, y: 0.63, z: 0}
   m_LocalScale: {x: 0.5313695, y: 0.5313695, z: 0.5313695}
   m_Children: []
   m_Father: {fileID: 0}

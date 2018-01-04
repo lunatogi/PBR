@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-    Rigidbody2D rigidbody;
+    Rigidbody2D rigidbodyBullet;
 
     public float speed = 20f;
     int direction = 1;
@@ -13,11 +13,12 @@ public class Bullet : MonoBehaviour {
     public int damage = 5;
 
 	void Start () {
-        rigidbody = transform.gameObject.GetComponent<Rigidbody2D>();
+        rigidbodyBullet = transform.gameObject.GetComponent<Rigidbody2D>();
 	}
 	
 	void FixedUpdate () {
-        rigidbody.velocity = new Vector2(direction * speed, rigidbody.velocity.y);
+        print(direction);
+        rigidbodyBullet.velocity = new Vector2(direction * speed, rigidbodyBullet.velocity.y);
 
         lifetime -= Time.deltaTime;
 
@@ -33,6 +34,12 @@ public class Bullet : MonoBehaviour {
             collision.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
             Destroy(transform.gameObject);
         }
+    }
+
+    public void DirectionSet(int direc)
+    {
+        direction = direc;
+        print("sex");
     }
 
 
