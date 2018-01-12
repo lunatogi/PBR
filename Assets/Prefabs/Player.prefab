@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 50909776865823296}
   - component: {fileID: 114627921957104538}
   - component: {fileID: 95410841123388100}
+  - component: {fileID: 114668131916896524}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -149,6 +150,38 @@ MonoBehaviour:
   bullet: {fileID: 1954873943901324, guid: e35b0f7f7152dc74e9316d82b3147729, type: 2}
   attackLoc: {fileID: 4757544021919640}
   maxSpeed: 10
+--- !u!114 &114668131916896524
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1156729398355000}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 242
+    i1: 76
+    i2: 254
+    i3: 226
+    i4: 134
+    i5: 51
+    i6: 118
+    i7: 4
+    i8: 90
+    i9: 143
+    i10: 188
+    i11: 111
+    i12: 147
+    i13: 32
+    i14: 73
+    i15: 81
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
 --- !u!212 &212535704470953918
 SpriteRenderer:
   m_ObjectHideFlags: 1

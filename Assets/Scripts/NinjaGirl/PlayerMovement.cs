@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerMovement : MonoBehaviour {
+public class PlayerMovement : NetworkBehaviour {
 
     Animator anim;
     Rigidbody2D rigidbodyPlayer;
@@ -15,7 +16,10 @@ public class PlayerMovement : MonoBehaviour {
 
     bool is_walking;
 
+    [SyncVar(hook = "FlipX")]
     int direction = 0;
+
+
     int bulletDirection;
 
 	void Start () {
@@ -25,6 +29,9 @@ public class PlayerMovement : MonoBehaviour {
     }
 	
 	void FixedUpdate () {
+
+        if (!isLocalPlayer)
+            return;
 
         if (direction != 0)
             bulletDirection = direction;
@@ -51,6 +58,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public void GoRight()           //Sağa giderken olması gerenler
     {
+        if (!isLocalPlayer)
+            return;
         anim.Play("girlwalkingAnim");
         direction = 1;
         FlipX(direction);
@@ -59,6 +68,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public void GoLeft()            //Sola giderken olması gerekenler
     {
+        if (!isLocalPlayer)
+            return;
         anim.Play("girlwalkingAnim");
         direction = -1;
         FlipX(direction);
@@ -67,6 +78,8 @@ public class PlayerMovement : MonoBehaviour {
 
     public void PointerUp()
     {
+        if (!isLocalPlayer)
+            return;
         is_walking = false;
         anim.Play("girlidleAnim");
     }
@@ -78,14 +91,20 @@ public class PlayerMovement : MonoBehaviour {
 
     public void Attack()
     {
+        if (!isLocalPlayer)
+            return;
         anim.Play("girlattackAnim");
-        Invoke("InvokeBullet", 0.2f);       //Delayle mermi atımını sağlar
+        CmdInvokeBullet();       //Delayle mermi atımını sağlar
     }
 
-    public void InvokeBullet()
+    [Command]
+    public void CmdInvokeBullet()
     {
         GameObject bult = Instantiate(bullet, attackLoc.position, attackLoc.rotation);    //Mermi oluşturur
         bult.SendMessage("DirectionSet", bulletDirection);
+
+        NetworkServer.Spawn(bult);
+
     }
 
 
