@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class Bullet : MonoBehaviour {
+public class Bullet : NetworkBehaviour {
     Rigidbody2D rigidbodyBullet;
 
     public float speed = 20f;
+
+    [SyncVar(hook = "DirectionSet")]
     int direction = 1;
 
     public float lifetime = 2f;

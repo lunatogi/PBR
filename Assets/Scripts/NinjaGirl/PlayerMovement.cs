@@ -7,7 +7,6 @@ public class PlayerMovement : NetworkBehaviour {
 
     Animator anim;
     Rigidbody2D rigidbodyPlayer;
-    SpriteRenderer s_Renderer;
 
     public GameObject bullet;       //Ateş edilecek mermi ve çıkış noktası
     public Transform attackLoc;
@@ -25,7 +24,6 @@ public class PlayerMovement : NetworkBehaviour {
 	void Start () {
         anim = transform.gameObject.GetComponent<Animator>();
         rigidbodyPlayer = transform.gameObject.GetComponent<Rigidbody2D>();
-        s_Renderer = transform.gameObject.GetComponent<SpriteRenderer>();
     }
 	
 	void FixedUpdate () {
