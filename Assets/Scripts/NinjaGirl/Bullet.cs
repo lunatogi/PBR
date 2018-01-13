@@ -13,7 +13,7 @@ public class Bullet : NetworkBehaviour {
 
     public float lifetime = 2f;
 
-    public int damage = 5;
+    public int damage = 10;
 
 	void Start () {
         rigidbodyBullet = transform.gameObject.GetComponent<Rigidbody2D>();
@@ -31,10 +31,13 @@ public class Bullet : NetworkBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Player")
         {
             print("damaged");
             collision.gameObject.SendMessage("Damage", damage, SendMessageOptions.DontRequireReceiver);
+            var hit = collision.gameObject;
+            var health = hit.GetComponent<Health>();
+            health.TakeDamage(damage);
             Destroy(transform.gameObject);
         }
     }
